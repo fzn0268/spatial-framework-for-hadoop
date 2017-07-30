@@ -13,15 +13,11 @@ import com.esri.core.geometry.OperatorSimpleRelation;
 	"SELECT _FUNC_(st_linestring(2,0, 2,3), st_polygon(1,1, 1,4, 4,4, 4,1)) from src LIMIT 1;  -- return true\n" + 
 	"SELECT _FUNC_(st_linestring(0,2, 0,1), ST_linestring(2,0, 1,0)) from src LIMIT 1;  -- return false"	
 	)
-public class ST_Crosses extends ST_GeometryRelational {
+public class ST_Crosses extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorCrosses.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s crosses %s", args[0], args[1]);
-	}
 }

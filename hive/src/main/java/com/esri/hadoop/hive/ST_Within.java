@@ -13,15 +13,11 @@ import com.esri.core.geometry.OperatorWithin;
 	"SELECT _FUNC_(st_point(8, 8), st_polygon(1,1, 1,4, 4,4, 4,1)) from src LIMIT 1;  -- return false"	
 	)
 
-public class ST_Within extends ST_GeometryRelational {
+public class ST_Within extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorWithin.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s within %s", args[0], args[1]);
-	}
 }

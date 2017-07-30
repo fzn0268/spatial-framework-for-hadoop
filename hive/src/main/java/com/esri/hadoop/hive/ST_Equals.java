@@ -12,15 +12,11 @@ import com.esri.core.geometry.OperatorSimpleRelation;
 	"SELECT _FUNC_(st_linestring(0,0, 1,1), st_linestring(1,1, 0,0)) from src LIMIT 1;  -- return true\n" + 
 	"SELECT _FUNC_(st_linestring(0,0, 1,1), st_linestring(1,0, 0,1)) from src LIMIT 1;  -- return false\n"	
 	)
-public class ST_Equals extends ST_GeometryRelational {
+public class ST_Equals extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorEquals.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s equals %s", args[0], args[1]);
-	}
 }

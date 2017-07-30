@@ -13,15 +13,11 @@ import com.esri.core.geometry.OperatorSimpleRelation;
 	"SELECT _FUNC_(ST_LineString(8,7, 7,8), ST_Polygon(1,1, 4,1, 4,4, 1,4)) from src LIMIT 1;  -- return false\n"	
 	)
 
-public class ST_Intersects extends ST_GeometryRelational {
+public class ST_Intersects extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorIntersects.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s intersects %s", args[0], args[1]);
-	}
 }

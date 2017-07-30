@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import org.apache.hadoop.io.BytesWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 
 
@@ -51,15 +52,18 @@ public class ST_GeomFromText extends ST_Geometry {
 
 	static final Log LOG = LogFactory.getLog(ST_GeomFromText.class.getName());
 
+	private static final IntWritable WKID_UNKNOWN_WRAP = new IntWritable(GeometryUtils.WKID_UNKNOWN);
+
 	public BytesWritable evaluate(Text wkt) throws UDFArgumentException {
-		return evaluate(wkt, 0);
+		return evaluate(wkt, WKID_UNKNOWN_WRAP);
 	}
 
-	public BytesWritable evaluate(Text wkwrap, int wkid) throws UDFArgumentException {
+	public BytesWritable evaluate(Text wkwrap, IntWritable wkidwrip) throws UDFArgumentException {
 
 		String wkt = wkwrap.toString();
 		try {
 			SpatialReference spatialReference = null;
+			int wkid = wkidwrip == null ? GeometryUtils.WKID_UNKNOWN : wkidwrip.get();
 			if (wkid != GeometryUtils.WKID_UNKNOWN) {
 				spatialReference = SpatialReference.create(wkid);
 			}

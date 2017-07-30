@@ -13,15 +13,11 @@ import com.esri.core.geometry.OperatorSimpleRelation;
 	"SELECT _FUNC_(st_polygon(2,0, 2,1, 3,1), ST_Polygon(1,1, 1,4, 4,4, 4,1)) from src LIMIT 1;  -- return false"	
 	)
 
-public class ST_Overlaps extends ST_GeometryRelational {
+public class ST_Overlaps extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorOverlaps.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s overlaps %s", args[0], args[1]);
-	}
 }

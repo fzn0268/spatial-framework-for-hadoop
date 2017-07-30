@@ -13,15 +13,11 @@ import com.esri.core.geometry.OperatorSimpleRelation;
 	"SELECT _FUNC_(ST_LineString(0,0, 1,1), ST_LineString(1,0, 0,1)) from src LIMIT 1;  -- return false\n"	
 	)
 
-public class ST_Disjoint extends ST_GeometryRelational {
+public class ST_Disjoint extends ST_GeometryRelationalUDF {
 
 	@Override
 	protected OperatorSimpleRelation getRelationOperator() {
 		return OperatorDisjoint.local();
 	}
 
-	@Override
-	public String getDisplayString(String[] args) {
-		return String.format("returns true if %s and %s are disjoint", args[0], args[1]);
-	}
 }
